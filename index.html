@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      #myCanvas {
+        height: 100vh;
+        width: 100vw;
+        background-color: black;
+      }
+    </style>
+    <script type="text/javascript" src="js/lib/paper-full.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"
+    ></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+          var keyData = {
+            a: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//bubbles.mp3"],
+              })
+            }
+            ,
+            b: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//clay.mp3"],
+              })
+            }
+            ,
+            c: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//confetti.mp3"],
+              })
+            }
+            ,
+            d: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//corona.mp3"],
+              })
+            }
+            ,
+            e: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//dotted-spiral.mp3"],
+              })
+            }
+            ,
+            f: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//flash-1.mp3"],
+              })
+            }
+            ,
+            g: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//flash-2.mp3"],
+              })
+            }
+            ,
+            h: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//flash-3.mp3"],
+              })
+            }
+            ,
+            i: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//glimmer.mp3"],
+              })
+            }
+            ,
+            j: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//moon.mp3"],
+              })
+            }
+            ,
+            k: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//pinwheel.mp3"],
+              })
+            }
+            ,
+            l: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//piston-1.mp3"],
+              })
+            }
+            ,
+            m: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//piston-2.mp3"],
+              })
+            }
+            ,
+            n: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//piston-3.mp3"],
+              })
+            }
+            ,
+            o: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//prism-1.mp3"],
+              })
+            }
+            ,
+            p: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//prism-2.mp3"],
+              })
+            }
+            ,
+            q: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//prism-3.mp3"],
+              })
+            }
+            ,
+            r: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//splits.mp3"],
+              })
+            }
+            ,
+            s: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//squiggle.mp3"],
+              })
+            }
+            ,
+            t: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//strike.mp3"],
+              })
+            }
+            ,
+            u: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//suspension.mp3"],
+              })
+            }
+            ,
+            v: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//timer.mp3"],
+              })
+            }
+            ,
+            w: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//ufo.mp3"],
+              })
+            }
+            ,
+            x: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//veil.mp3"],
+              })
+            }
+            ,
+            y: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//wipe.mp3"],
+              })
+            }
+            ,
+            z: {
+              color: randomRGB(),
+              sound: new Howl({
+                src: ["sounds//zig-zag.mp3"],
+              })
+            }
+          }
+
+          var circles = []
+          function randomRGB() {
+            var red = Math.floor(Math.random() * 255 + 1);
+            var green = Math.floor(Math.random() * 255 + 1);
+            var blue = Math.floor(Math.random() * 255 + 1);
+
+            return "rgb(".concat(red, ", ", green, ", ", blue, ")")
+          }
+          function randomx() {
+            return Math.random() * view.size.width;
+          }
+          function randomy() {
+            return Math.random() * view.size.height;
+          }
+
+          function randomSize() {
+            return 200 + Math.random() * 400
+          }
+          function onKeyDown(event) {
+            keyData[event.key].sound.play();
+            var myCircle = new Path.Circle(new Point(randomx(), randomy()),randomSize());
+            circles.push(myCircle);
+            myCircle.fillColor = keyData[event.key].color;
+
+            console.log(circles)
+          }
+
+      function onFrame(event){
+        for(var i = 0; i<circles.length;i++){
+          circles[i].fillColor.hue += 5;
+          circles[i].scale(0.9);
+          if(circles[i].area < 1){
+            circles[i].remove(); // remove the circle from the canvas
+            circles.splice(i, 1); // remove the circle from the array
+            console.log(circles);
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="myCanvas" resize="true"></canvas>
+  </body>
+</html>
